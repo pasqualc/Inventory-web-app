@@ -1,0 +1,43 @@
+mat-card {
+	width: 800px;
+	margin: 0px auto;
+}
+
+mat-spinner {
+	margin: auto;
+}
+
+.back-button {
+	margin-bottom: 20px;
+}
+
+button {
+	margin-bottom: 20px;
+	margin-right: 20px;
+	width: 120px;
+	&:last-child {
+		margin-right: 0px;
+	}
+}
+
+.heading-field,
+.product {
+	list-style: none;
+	padding: 10px;
+	&:nth-child(odd) {
+		background-color: #f0f9fc;
+	}
+	&:hover {
+		background-color: #6349c4;
+		color: #fff;
+		cursor: pointer;
+	}
+}
+
+.update-success {
+	color: #2ecc71;
+}
+
+.update-failure {
+	color: #e74c3c;
+}

@@ -1,0 +1,18 @@
+<mat-card>
+    <button mat-stroked-button class="back-button" color="primary" (click)="back()">Back</button>
+    <mat-card-header>
+        <mat-card-title>{{sheetName}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content style="overflow: scroll">
+        <h1  *ngIf="contentLoading">Loading...</h1>
+        <mat-progress-bar *ngIf="contentLoading" mode="buffer"></mat-progress-bar>
+        <table  id="products-table" *ngIf="!contentLoading" matSort (matSortChange)="sortChange($event)">
+            <tr id="table-header">
+                <th *ngFor="let field of headingFields; index as i" [mat-sort-header]="field.index" class="field-head">{{field.name}}</th>
+            </tr>
+            <tr *ngFor="let product of sortedProducts">
+                <td *ngFor="let field of headingFields">{{product[field.name]}}</td>
+            </tr>
+        </table>
+    </mat-card-content>
+</mat-card>

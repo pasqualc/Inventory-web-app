@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+  <div *ngFor="let field of data.product.data">
+    <p>{{field.name | titlecase}}</p>
+    <mat-form-field *ngIf="field.text">
+      <input matInput type="text" [(ngModel)]="field.value">
+    </mat-form-field>
+    <mat-form-field *ngIf="!field.text">
+      <input matInput type="number" min="0" [(ngModel)]="field.value">
+    </mat-form-field>
+  </div>
+</div>
+<h4 style="color: #2ecc71;" *ngIf="updateSuccess">Update successful!</h4>
+<h4 style="color: #e74c3c;" *ngIf="updateFailure">Update failed!</h4>
+<div mat-dialog-actions>
+  <button mat-stroked-button style="margin-right: 10px;" class="product-save-button" (click)="saveProduct(data.product)" color="primary">Save</button>
+  <button mat-stroked-button *ngIf="data.permissions == 'admin'" class="product-delete-button" (click)="deleteProduct(data.product)" color="warn">Remove</button>
+</div>

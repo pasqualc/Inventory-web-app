@@ -1,0 +1,13 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Backend Test</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div id="tests-container">
+            <div *ngFor="let test of testResults">
+                <h2 *ngIf="test.result" class="success">{{ test.description }}</h2>    
+                <h2 *ngIf="!test.result" class="failed">{{ test.description }}</h2>  
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

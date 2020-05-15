@@ -1,0 +1,22 @@
+<mat-card>
+    <button mat-stroked-button class="back-button" color="primary" routerLink="/login">Back</button>
+    <mat-card-header>
+        <mat-card-title>Manage Users</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-progress-bar *ngIf="contentLoading" mode="buffer"></mat-progress-bar>
+        <div *ngIf="!contentLoading">
+            <button mat-flat-button id="create-user" (click)="createUser()" color="primary">Create User</button>
+            <mat-list id="user-list">
+                <div *ngFor="let user of users">
+                    <mat-divider></mat-divider>
+                    <mat-list-item class="user">
+                        <h4><span class="username">{{ user.name }}</span> | Permissions: <span class="permissions">{{ user.permissions | titlecase }}</span></h4>
+                        <button mat-stroked-button class="edit-book" color="primary" (click)="editUser(user)">Edit</button>
+                        <button mat-stroked-button class="delete-book" color="warn" (click)="deleteUser(user)">Delete</button>
+                    </mat-list-item>
+                </div>
+            </mat-list>
+        </div>
+    </mat-card-content>
+</mat-card>

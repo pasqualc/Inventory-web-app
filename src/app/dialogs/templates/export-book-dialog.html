@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Export Book</h1>
+<div mat-dialog-content>
+  <p>File name:</p>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="data.name">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <!-- <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button> -->
+  <button mat-button (click)="exportBook()" >Export</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <h4 style="color: #e74c3c;" *ngIf="exportFailure">Export failed!</h4>
+</div>

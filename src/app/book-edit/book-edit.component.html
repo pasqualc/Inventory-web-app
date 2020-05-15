@@ -1,0 +1,37 @@
+<mat-card>
+    <button mat-stroked-button class="back-button" color="primary" routerLink="/books">Back</button>
+    <mat-card-header>
+        <mat-card-title>Edit Book</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <h1  *ngIf="contentLoading">Loading...</h1>
+        <mat-progress-bar *ngIf="contentLoading" mode="buffer"></mat-progress-bar>
+        <div *ngIf="!contentLoading">
+            <h2 >Book name:</h2>
+            <mat-form-field >
+                <input matInput  id="book-name-input" type="text" placeholder="Name" [(ngModel)]="bookName">
+            </mat-form-field>
+            <div>
+                <button  mat-flat-button id="save-name-button" (click)="saveName(bookName)" color="primary">Save Name</button>
+            </div>
+            <div>
+                <h3 class="update-success" *ngIf="updateNameSuccess">Update successful!</h3>
+                <h3 class="update-failure" *ngIf="updateNameFailure">Update failed!</h3>
+            </div>
+        </div>
+        <h2 >Default Header:</h2>
+        <button  [disabled]="bookId == 'new' ? true : false" mat-flat-button class="add-button" id="add-field-button" (click)="addField()" color="primary">Add Field</button>
+        <div>
+            <div class="heading-field" *ngFor="let field of headingFields" (click)="editField(field)">
+                <h2>{{field.name}}</h2>
+            </div>
+        </div>
+        <h2 >Default products:</h2>
+        <button [disabled]="bookId == 'new' ? true : false" mat-flat-button class="add-button" id="add-product-button" (click)="addProduct()" color="primary">Add Product</button>
+        <div>
+            <div class="product" *ngFor="let product of formattedProducts" (click)="editProduct(product)">
+                <h2>{{product.productName}} <span *ngIf="product.primary">[Primary field]</span></h2>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

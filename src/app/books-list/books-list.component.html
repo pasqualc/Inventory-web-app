@@ -1,0 +1,35 @@
+<mat-card id="#book-list-component">
+    <button mat-stroked-button class="back-button" color="primary" routerLink="/login">Back</button>
+    <mat-card-header>
+        <mat-card-title>Books List</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div>
+            <button mat-flat-button *ngIf="permissions == 'admin'" id="create-book" (click)="createBook()" color="primary">Create Book</button>
+            <button mat-flat-button id="import" (click)="importBook()" color="accent">Import Book</button>
+        </div>
+        <div *ngIf="!contentLoading" id="sort-control">
+            <mat-form-field>
+                <mat-label>Sort Books</mat-label>
+                <mat-select [(value)]="sortOrder" id="sort-control">
+                    <mat-option (click)="sort()" value="none">None</mat-option>
+                    <mat-option (click)="sort()" value="ascending">Ascending</mat-option>
+                    <mat-option (click)="sort()" value="descending">Descending</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <h1  *ngIf="contentLoading">Loading...</h1>
+        <mat-progress-bar *ngIf="contentLoading" mode="buffer"></mat-progress-bar>
+        <mat-list>
+            <div *ngFor="let book of sortedBooks">
+                <mat-divider></mat-divider>
+                <mat-list-item class="book">
+                    <h4>{{ book.name }}</h4>
+                    <button mat-stroked-button class="view-book" color="primary" (click)="openBook(book.id)">View</button>
+                    <button mat-stroked-button *ngIf="permissions == 'admin'" class="edit-book" color="primary" (click)="editBook(book.id)">Edit</button>
+                    <button mat-stroked-button *ngIf="permissions == 'admin'" class="delete-book" color="warning" (click)="deleteBook(book.id)">Delete</button>
+                </mat-list-item>
+            </div>
+        </mat-list>
+    </mat-card-content>
+</mat-card>

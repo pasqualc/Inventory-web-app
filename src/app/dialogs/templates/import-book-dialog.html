@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Import Book</h1>
+<div mat-dialog-content>
+  <p>Select File:</p>
+  <input type="file" (change)="fileChange($event)" multiple="false">
+  <p>Book name:</p>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="data.importedBook.name">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="importBook()">Ok</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <h4 style="color: #e74c3c;" *ngIf="importFailure">Import failed!</h4>
+
+</div>

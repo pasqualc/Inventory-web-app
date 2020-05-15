@@ -1,0 +1,18 @@
+<h1 *ngIf="data.sheetId" mat-dialog-title>Add Product</h1>
+<h1 *ngIf="!data.sheetId" mat-dialog-title>Add Default Product</h1>
+<div mat-dialog-content>
+  <div *ngFor="let field of data.formattedData">
+    <p>{{field.name | titlecase}}</p>
+    <mat-form-field *ngIf="field.text">
+      <input matInput type="text" [(ngModel)]="field.value">
+    </mat-form-field>
+    <mat-form-field *ngIf="!field.text">
+      <input matInput type="number" min="0" [(ngModel)]="field.value">
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="addProduct()" cdkFocusInitial>Ok</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <h4 style="color: #e74c3c;" *ngIf="addFailure">Add failed!</h4>
+</div>

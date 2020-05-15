@@ -1,0 +1,35 @@
+<mat-card>
+    <button mat-stroked-button class="back-button" color="primary"  routerLink="/books">Back</button>
+    <mat-card-header>
+        <mat-card-title>{{bookName}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div>
+            <button mat-flat-button id="create-sheet" (click)="createSheet()" color="primary">Create Sheet</button>
+            <button mat-flat-button id="export" (click)="openExportDialog()" color="accent">Export Book</button>
+        </div>
+        <div *ngIf="!contentLoading" id="sort-control">
+            <mat-form-field>
+                <mat-label>Sort Books</mat-label>
+                <mat-select id="sort-control" [(value)]="sortOrder">
+                    <mat-option (click)="sort()" value="none">None</mat-option>
+                    <mat-option (click)="sort()" value="ascending">Ascending</mat-option>
+                    <mat-option (click)="sort()" value="descending">Descending</mat-option>
+                </mat-select>
+            </mat-form-field>   
+        </div>
+        <h1  *ngIf="contentLoading">Loading...</h1>
+        <mat-progress-bar *ngIf="contentLoading" mode="buffer"></mat-progress-bar>
+        <mat-list>
+            <div class="sheet-listing" *ngFor="let sheet of sortedSheets">
+                <mat-divider></mat-divider>
+                <mat-list-item>
+                    <h4>{{ sheet.name }}</h4>
+                    <button mat-stroked-button class="view-sheet" color="primary" (click)="viewSheet(sheet.id)">View</button>
+                    <button mat-stroked-button class="edit-sheet" color="primary" (click)="editSheet(sheet.id)">Edit</button>
+                    <button mat-stroked-button *ngIf="permissions == 'admin'" class="delete-sheet" color="warning" (click)="deleteSheet(sheet.id)">Delete</button>
+                </mat-list-item>
+            </div>
+        </mat-list>
+    </mat-card-content>
+</mat-card>

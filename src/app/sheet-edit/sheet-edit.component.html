@@ -1,0 +1,43 @@
+<mat-card>
+  <button mat-stroked-button class="back-button" color="primary" (click)="back()">Back</button>
+    <mat-card-header>
+      <mat-card-title>Edit Sheet</mat-card-title>
+    </mat-card-header>
+      <mat-card-content>
+        <h1 *ngIf="contentLoading">Loading...</h1>
+        <mat-progress-bar *ngIf="contentLoading" mode="buffer"></mat-progress-bar>
+        <div *ngIf="!contentLoading">
+          <h2 >Sheet name:</h2>
+          <mat-form-field id="sheet-name">
+            <input matInput id="sheet-name-input" type="text" placeholder="Name" [(ngModel)]="sheetName">
+          </mat-form-field>
+          <div>
+            <button mat-flat-button id="save-name-button" (click)="saveSheetName()" color="primary">Save Name</button>
+          </div>
+          <div>
+            <h3 class="update-success" *ngIf="updateNameSuccess">Update successful!</h3>
+            <h3 class="update-failure" *ngIf="updateNameFailure">Update failed!</h3>
+          </div>
+        </div>
+        <h2 *ngIf="!contentLoading">Header:</h2>
+        <div *ngIf="!contentLoading">
+          <button *ngIf="permissions == 'admin'" mat-flat-button class="add-button" id="add-field-button" (click)="addHeaderField()" color="primary">Add Field</button>
+          <div *ngIf="permissions == 'admin'" id="heading-fields">
+            <div class="heading-field" *ngFor="let field of headingFields" (click)="editField(field)">
+              <h2>{{field.name}}</h2>
+            </div>
+          </div>
+          <div *ngIf="permissions != 'admin'">
+            <h2 id="no-admin">You must have admin privileges to manage sheet heading fields.</h2>
+          </div>
+        </div>
+        <h2 *ngIf="!contentLoading">Products:</h2>
+        <button *ngIf="!contentLoading" mat-flat-button id="add-product-button" (click)="openProductCreateDialog()" color="primary">Add Product</button>
+        <div>
+          <div class="product" *ngFor="let product of formattedProducts" (click)="editProduct(product)">
+            <h2>{{product.productName}}</h2>
+          </div>
+        </div>
+      </mat-card-content>
+  </mat-card>
+          

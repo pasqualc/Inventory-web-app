@@ -1,0 +1,111 @@
+CS 4910
+Potent Potables Project Inventory Tool 
+Maintainability Report
+
+Date: 		2020/4/4
+Team:		Jacob Colegio		jacob.p.colegio@wmich.edu       (586)292-0251
+			Kevin Stuible		kevin.l.stuible@wmich.edu		(517)974-6755
+			Scott VanderWeide	scott.j.vanderweide@wmich.edu	(269)547-9518
+
+Introduction
+
+	This document outlines, and provides references to, the technologies used in the inventory tracking system developed for the Potent Potables Project. The system is split into two distinct applications. One application is a backend application running on NodeJS. This backend application is built using ExpressJS. ExpressJS is a popular, javascript-based, backend web application framework. The second program is a frontend progressive web application (PWA) created with Angular, a typescript-based frontend framework for web applications. 
+
+	Helpful resources:
+		Application URL: p3-inventory.herokuapp.com
+		ExpressJS documentation available here.
+		Angular documentation available here.
+
+Backend Application
+
+	The backend application is a simple ExpressJS application with several crucial NodeJS packages added in. These crucial packages, and their dependencies, provide implementations of the various functionalities the backend application provides for the frontend application. The following is a list of the previously mentioned packages and their corresponding relationship to the backend application’s functionalities:
+	
+	-Bcryptjs, the package used for managing and hashing user passwords. https://www.npmjs.com/package/bcryptjs
+	-Jsonwebtoken, the package used for managing user tokens for logged-in users. https://www.npmjs.com/package/jsonwebtoken
+		See also jwt.io
+	-Firebase, the package used for interacting with the database created for this project. https://www.npmjs.com/package/firebase
+	-Firebase-admin, the package used for authenticating the server’s access to the database. https://www.npmjs.com/package/firebase-admin
+
+Frontend Application
+	The Angular CLI was used to initialize the frontend application. The initial configuration had limited functionalities, which would not satisfy the client’s needs. There have been several additional NodeJS packages included in the frontend application in order to provide all the functionalities requested by the client. Here are a list of references to several important NodeJS packages that the frontend application utilizes:
+
+	-File-saver, the package used to export data to excel-compatible file format. https://www.npmjs.com/package/file-saver
+	-Xlsx, the package used to parse excel-compatible file formats. https://www.npmjs.com/package/xlsx
+	-@angular/fire, the package used to configure the connection to the database set up for this project. https://www.npmjs.com/package/@angular/fire
+	-@angular/material, the package used to provide stylized UI components. https://material.angular.io/
+	-@angular/pwa, the package used to configure the frontend application as a Progressive Web Application. (PWA) https://angular.io/guide/service-worker-getting-started
+	-@angular/router, the package used to implement routing within the Angular application. https://angular.io/guide/router
+
+Database
+	Both the backend application and the frontend application utilize a database that was created specifically for this inventory tracking system. The database technology used for this system is Firestore running on Google’s Firebase platform. 
+	
+	The backend utilizes the firebase-admin NodeJS package, which requires a service key to be configured. This service key is the file fbServiceAccountKey.json, located in the root directory of the system. Said key is used to initialize the firebase-admin package in the firestore.js file, which is also located in the system’s root directory.
+	
+	The frontend utilizes an Angular-specific firestore adapter package called @angular/fire. This package offers advanced methods for reading and manipulating data in a firestore database, as well as easy implementation of very complex database functionalities, such as offline data persistence.
+
+	Helpful resources:
+		-Official firebase docs  https://firebase.google.com/docs
+		-@angular/fire  https://www.npmjs.com/package/@angular/fire
+		-@angular/fire docs  https://github.com/angular/angularfire/tree/master/docs
+		-What is Firestore?  https://firebase.google.com/docs/firestore
+		-Offline data persistence with Firestore  https://firebase.google.com/docs/firestore/manage-data/enable-offline
+		-Enabling offline data persistence with @angular/fire  https://github.com/angular/angularfire/blob/master/docs/firestore/offline-data.md
+
+Installation
+	The deployment strategy of this inventory tracking system is to deploy the backend application to Heroku, a third-party cloud hosting platform. Once the backend application is installed Heroku will call the heroku-postbuild script, (see package.json) which will begin building the frontend application. When the frontend application is built, the backend application will start and will serve the frontend application from the /dist directory of the project’s root directory. (/cs4900-inventory-manager)
+	
+	Helpful resources:
+		Official Heroku website  https://www.heroku.com/
+		Heroku Dev Center (Helpful Heroku docs)  https://devcenter.heroku.com/
+	
+	
+
+Testing
+
+	Both the frontend and backend applications have undergone testing of some kind. Backend application testing has been performed on the expected response of the endpoints that the frontend application utilizes. The frontend application has undergone extensive unit testing, integration testing, system testing, useability testing, among other forms of testing. More detailed information regarding the technologies and testing practices used can be found in this project’s Testing Report document.
+
+NPM Scripts
+
+	The following is a list of useful npm scripts that have been setup for the project. A complete list of the project’s npm scripts can be found in the package.json file, found in the project’s root directory.
+
+	Syntax: npm run-script <script>
+	Scripts:
+		Start - used to start the backend application.
+		Dev - functionally equivalent to start, but uses nodemon to run the backend application. (see more about nodemon here)
+		Build - builds the frontend Angular application.
+		Test - runs unit tests of the frontend application.
+		E2e - rusn the end-to-end tests of the frontend application.
+
+Security
+
+	The main security threat to the backend application are attacks on HTTP responses. The backend application utilizes Helmet, a NodeJS package that provides additional security for applications dealing with HTTP requests and responses. Details on what Helmet provides for the backend application can be found on Helmet’s official website. (See helpful resources below)
+	Security concerns of the frontend application primarily lie on validating a logged-in user’s JSON web token (JWT) while the application is connected to the internet. This is handled by an endpoint on the backend application. The frontend application sends the user token to the backend, and the backend will verify the integrity and validity of the received token. If the token is valid, the backend will create a new token (as of the writing of this document, the tokens are set to expire every hour) and send that new token back to the frontend application. The frontend also utilizes the backend’s password hashing functionalities when creating users or changing an existing user’s password, which is imperative to storing user’s login credentials safely.
+	Helpful resources:
+		Helmet official website   https://helmetjs.github.io/
+		JSON Web Tokens website (featuring a useful JWT debugger)  https://jwt.io/
+
+Git Repository
+
+	Note: a GitHub account has been created for the future maintainability of the system, the login credentials to said GitHut account, as well as other helpful developer credentials, can be found in this project’s Admin Credentials document.
+	
+	Git was used as the version control software for this project. The git repository set up for the project features several branches created for the familiarization, implementation and/or testing of various technologies and features contained within both the frontend and backend applications. 
+	The following is a complete list of the branches in the git repository and their corresponding descriptions:
+	
+	-Angular-material-familiarity - Created at beginning stages of prototyping. This branch was used to implement the Angular UI package into the frontend application.
+	-Back-buttons - Created to add back buttons on appropriate UI components in the frontend application.
+	-Firestore-playground  - Created in the early stage of prototyping, this branch was used to implement the firestore database into the frontend application.
+	-Exporting-importing - Implementation of importing/exporting features.
+	-Header-customization - Implementation of customizable headers for more flexible data track capabilities.
+	-Prototype_A - Created for the purpose of building the frontend application’s first prototype.
+	-Prototype_testing - Created to further test the frontend application’s early prototypes.
+	-Master - The most recent production build.
+	-Refactoring-and-testing  - Created in the later stages of development, this branch was created for refactoring code to be more readable and testable.
+	-Users-permissions - Created for the implementation of user permissions pertaining to creating/editing/deleting data within the database.
+
+	When a given feature’s implementation had progressed and sufficient testing had been completed on the code itself, the changes were pushed to the corresponding repository branch. When an implementation had been deemed complete, with all tests passing, the branch would be merged with the master branch.
+	For more information on recommended GitHub version control, see the GitHub Guides article on GitHub Flow, at https://guides.github.com/introduction/flow/.
+	Additionally, the ReadMe included in the GitHub repository has useful information regarding development servers, code scaffolding, how to build the project, how to run unit tests, how to run end-to-end tests, and references for further help.
+
+Updates
+
+	The project has several NodeJS dependencies, these dependencies can be managed by the Node Package Manager. (NPM) The NodeJS dependencies can be updated with the command npm update. Said dependencies can also be audited for security threats by running the command npm audit. While updates can patch security threats and improve the integrity of the overall system, updates can also break other NodeJS dependencies or application features. Apply updates with caution.

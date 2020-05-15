@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>New Sheet</h1>
+<div mat-dialog-content>
+  <p>Sheet name:</p>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="data.name">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="createSheet()" cdkFocusInitial>Create</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <h4 style="color: #e74c3c;" *ngIf="createFailure">Create failed!</h4>
+</div>

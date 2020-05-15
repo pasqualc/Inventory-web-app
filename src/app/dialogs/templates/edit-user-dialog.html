@@ -1,0 +1,32 @@
+<style>
+  mat-form-field {
+    width: 100%;
+  }
+</style>
+<div id="dialog-template">
+  <h1 mat-dialog-title><span *ngIf="data.user.id">Edit</span><span *ngIf="!data.user.id">Create</span> User</h1>
+  <div mat-dialog-content>
+    <div>
+      <mat-form-field>
+        <input id="username" matInput type="text" placeholder="username" [(ngModel)]="data.user.username">
+      </mat-form-field>
+      <mat-form-field>
+        <input id="name" matInput type="text" placeholder="Name" [(ngModel)]="data.user.name">
+      </mat-form-field>
+      <mat-form-field>
+        <input id="password" matInput type="text" placeholder="New Password (Optional)" [(ngModel)]="data.user.password">
+      </mat-form-field>
+      <div id="radio-div" style="margin-bottom: 15px;">
+        <mat-radio-group aria-label="Select a permissions type" name="permissions-type" [(ngModel)]="data.user.permissions">
+            <mat-radio-button style="margin-right: 25px;" [checked]="(data.user.permissions == 'admin')" value="admin">Admin</mat-radio-button>
+            <mat-radio-button [checked]="(data.user.permissions == 'user')" value="user">User</mat-radio-button>
+        </mat-radio-group>
+    </div>
+    </div>
+  </div>
+  <h4 style="color: #2ecc71;" *ngIf="updateSuccess">Update successful!</h4>
+  <h4 style="color: #e74c3c;" *ngIf="updateFailure">Update failed!</h4>
+  <div mat-dialog-actions>
+    <button mat-stroked-button style="margin-right: 10px;" class="product-save-button" (click)="saveUser(data.user)" color="primary">Save</button>
+  </div>
+</div>

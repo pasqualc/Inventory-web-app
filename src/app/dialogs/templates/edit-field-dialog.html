@@ -1,0 +1,20 @@
+<div mat-dialog-actions>
+    <button style="margin-bottom: 25px;" mat-stroked-button class="dialog-close-button" [mat-dialog-close]="data" color="accent">Close</button>
+</div>
+<mat-form-field>
+    <input matInput class="member-name" type="text" placeholder="Name" name="member-name" [(ngModel)]="data.field.name">
+</mat-form-field>
+<div id="radio-div" style="margin-bottom: 15px;">
+    <mat-radio-group aria-label="Select a heading type" name="book-type" [(ngModel)]="data.field.type">
+        <mat-radio-button style="margin-right: 25px;" [checked]="data.field.text" value="text">Text</mat-radio-button>
+        <mat-radio-button [checked]="!data.field.text" value="number">Number</mat-radio-button>
+    </mat-radio-group>
+</div>
+<div style="margin-bottom: 10px;">
+    <mat-checkbox [(ngModel)]="data.field.primary">Primary field</mat-checkbox>
+</div >
+<h4 style="color: #2ecc71;" *ngIf="updateSuccess">Update successful!</h4>
+<h4 style="color: #e74c3c;" *ngIf="updateFailure">Update failed!</h4>
+<button mat-stroked-button style="margin-right: 10px;" class="field-save-button" (click)="saveField(data.field)" color="primary">Save</button>
+<button mat-stroked-button *ngIf="data.permissions == 'admin'" class="field-delete-button" (click)="deleteField()" color="warn">Remove</button>
+

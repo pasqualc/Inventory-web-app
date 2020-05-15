@@ -1,0 +1,102 @@
+CS 4910
+Potent Potables Project Inventory Tool 
+Testing Report
+
+Date:     2020/4/4
+Team:     Jacob Colegio       jacob.p.colegio@wmich.edu         (586)292-0251
+          Kevin Stuible       kevin.l.stuible@wmich.edu         (517)974-6755
+          Scott VanderWeide   scott.j.vanderweide@wmich.edu     (269)547-9518
+
+Introduction
+
+  This document details the testing procedures applied to the development of the inventory tracking tool created for the Potent Potables Project. The inventory tool itself consists of two main programs: first, a backend application created with ExpressJS. ExpressJS is a popular, javascript-based, backend web application framework for NodeJS. The second program is a frontend progressive web application (PWA) created with Angular, a popular typescript-based frontend framework for web applications. 
+  
+  Helpful resources:
+    ExpressJS documentation available at expressjs.com/
+    Angular documentation available at angular.io/docs
+
+Frontend Testing
+
+  The majority of user interactivity happens on the inventory tool’s frontend application.  Said application has undergone several different types of testing to ensure reliability, usability, and accessibility for the end user. Unit tests can be run on the frontend application with the command ng test. This command will utilize the frameworks that the Angular CLI sets up for testing purposes. End-to-end testing has also been performed on the frontend application. End-to-end tests can be run with the command ng e2e.
+
+Backend Testing
+
+  The backend application provides endpoints for HTTP requests from the frontend application. These endpoints have been tested against the expectation of specific data being sent back to the client based upon the data included in the requests received by the backend application. These endpoints can be tested with the frontend application by going to <domain>/test.
+
+Unit Testing
+
+  The Angular application was created with the Angular CLI, a NodeJS tool that allows users to easily create new Angular applications by answering a few simple prompts about the application’s configuration. The Angular CLI configures new applications to designate unit testing to Jasmine, a TypeScript-based unit testing framework. This document does not describe how to use Jasmine to write tests. (link to Jasmine documentation provided below) The Angular CLI creates a separate unit test for each Angular component or service it generates. The following are the general unit testing practices applied to the frontend application.
+  -Classes should be expected to have specific functions, the implementation of which is ambiguous.
+    Example: “It should have an ‘add user’ function.”
+  -Functions should validate inputs and handle valid inputs accordingly.
+    Example: “It should have an ‘add user’ function that returns a promise that should resolve with ‘truth-y’ data when valid args are passed in.”
+  -Functions should validate inputs and handle invalid inputs accordingly.
+    Example: “It should have an ‘add user’ function that returns a promise that should resolve with ‘false-y’ data when invalid args are passed.”
+  -Data returned from functions should be tested against implementation-specific expectations.
+    Example: “It should have a ‘parse products’ function that returns an array of objects wherein each element should have [implementation-specific data here].”
+  -Implementation-specific logic may utilize a combination of functions in specific ways. Tests should be written against how these functions are called corresponding to implementation logic.
+    Example: “It should have an ‘add product’ function that opens the injected MatDialog object with the AddProductDialog component”
+  -Functions provided by injected services should make use of a mock service that provides ambiguous implementations of the actual functions contained therein.
+  When configuring the Angular Testbed in a given unit test, these mock services can be provided by specifying providers as an array within the argument passed to the TestBed.configureTestingModule function.
+  { …, providers: [ { provide: MyService, useClass: MockMyService } ], … }
+  -Instance variables should be tested against implementation-specific requirements.
+    Example: “It should have the current book’s heading fields as a public array variable.”
+  -DOM elements are rendered according to data within a given Angular component and said component’s template logic.
+    Example: “It should have all products rendered to the DOM.”
+
+Running Unit Tests
+  
+  Unit tests are run with a single CLI command. To run the frontend unit tests, set the working directory of your terminal/command line somewhere within the root directory of the Angular project, titled cs4900-inventory-manager, then run the command ng test. Jasmine will open a web browser to display its UI (shown below) and then begin running all of the Angular application’s unit tests.
+
+  Helpful unit testing resources:
+    Official Jasmine documentation can be found at jasmine.github.io
+    Angular-specific testing documentation can be found at angular.io/guide/testing
+
+Usability Testing
+
+  One of the main goals of this project was to create a tool that is intuitive to use. Usability testing is the primary means by which an intuitive user experience has been achieved. The development team has worked directly with each other to design and implement the features corresponding to the client’s needs. Through means of whitebox testing, the development team is able to understand exactly how the code written translates to the user’s experience first-hand. The development team has also worked directly with the client, to present new features and acquire crucial feedback from the real actors that will be using the software. Usability testing, as it pertains to this frontend application, has been applied with several considerations in mind, including, but not limited to: 
+
+  -Application’s overall workflow must make sense according to how the client intends to use it.
+  -Any UI contained within the application should present data in a clear and concise manner. 
+  -Any UI element that causes specific data to be edited, deleted, created, or expanded upon, should be placed somewhere where it is very obvious which piece of data that UI element corresponds to.
+  -When a UI element’s action is invoked, any success/error messages that result from that action should be presented somewhere in close proximity to said UI element.
+  -All UI text should contrast well with the background behind it.
+  -The actions performed by a given UI element should be clearly represented by the text displayed on said UI element.
+  -Spacing between UI elements should be appropriate corresponding to the devices the application will be run on.
+  -Sizing of UI elements should be appropriate for their corresponding usage.
+  -UI elements with similar actions should be placed near one another, when possible.
+
+Accessibility Testing
+
+  In addition to making sure the workflow implementations and UI designs are streamlined, designing a user’s experience must also take into consideration any disabilities of the client/persons using the software. A given user’s disabilities can have extensive impacts on the experience, and steps must be taken by the development team to accommodate said users. For example: users with vision impairments may not be able to clearly read the text of an otherwise well-designed UI, and the development team must take appropriate steps to improve the UI readability for that particular user’s disability. It is imperative that any disabilities that the client wishes to disclose must be taken into consideration by the development team. The existing job requirements of those who would be users of this application create a situation in which most accessibility requirements are already weeded out; employees of the client’s restaurant need to be able to lift fifty pounds, be able to read relatively small text in dim lighting, and generally be able to hear what is happening in a kitchen or at a bar. Because of the myriad needs inherent in the position, at the time of writing this document, there have been no accessibility requirements issued to the development team by the client.
+
+System Testing
+
+  Writing system tests for Angular applications is done using Protractor, an end-to-end test framework. The Protractor testing framework utilizes Selenium, a browser automation framework. The combination of the two gives developers the ability to test the frontend application by mimicking the actions of an end user interacting with their web browser.
+
+Running End-to-End Tests
+
+  In order to run end-to-end tests, from a terminal/command line, set the working directory to the application’s base directory (cs4900-inventory-manager) or any directory contained therein. Next, run the command ng e2e. Note: the current configuration is to use Chrome as the testing browser. This can be changed by editing the corresponding protractor configuration file located at cs4900-inventory-manager/e2e/protractor.confg.js.
+
+  Helpful resources:
+    Official Protractor website: www.protractortest.org/#/
+    How protractor works: www.protractortest.org/#/infrastructure
+    In depth protractor tutorial: www.tutorialspoint.com/protractor/protractor_introduction.htm
+
+Coverage Testing
+
+  The Angular CLI automatically generates a unit test for each Angular component or service it is invoked to create. This ensures that, when new features or UIs are implemented, there is a new unit test made specifically for said features/UIs. The frontend application has 390+ individual tests written across all unit tests. These unit tests focus on testing functions of all components and services, as well as the template logic and model binding of all components. The frontend application also has end-to-end tests written to ensure the application handles user permissions and user validation appropriately.
+
+Security Testing
+
+  The frontend application is responsible for reading and writing data, the integrity of which is imperative to the client’s ability to track costs accurately and operate efficiently. The frontend application’s unit tests provide test coverage that pertains to verifying that the application responds appropriately to missing or invalid user credentials as well as tracking the permissions of each user.
+  
+  The frontend application utilizes JSON web tokens (JWT) as a means of providing a user’s credentials. The backend of the application is responsible for determining the validity of a JWT and taking action accordingly. The backend is also responsible for issuing a new JWT to users upon logging in. 
+
+  The backend application is imperative for the safe storage of sensitive user credentials. When a new user is created, or an existing user updates their password, the backend application provides a means of hashing the plaintext password. The resulting hash is intended as a means of safely storing user passwords within the frontend application’s integrated database. 
+
+
+
+
+
+
