@@ -41,7 +41,7 @@
 		"tslib": "^1.11.1",
 		"typescript": "~3.4.3",
 		"webdriver-manager": "^12.1.7",
-		"xlsx": "^0.15.6",
+		"xlsx": "^0.17.0",
 		"zone.js": "~0.9.1"
 	},
 	"devDependencies": {
